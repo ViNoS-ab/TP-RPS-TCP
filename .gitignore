@@ -1,0 +1,7 @@
+/venv/
+players.json
+rankings.json
+
+#for simplicity to excute i left the key and cert in the repo
+#server.crt
+#server.key
