@@ -9,9 +9,9 @@ class RPSGameClient:
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
         # Create SSL context
-        # self.ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
-        # self.ssl_context.check_hostname = False
-        # self.ssl_context.verify_mode = ssl.CERT_NONE
+        self.ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+        self.ssl_context.check_hostname = False
+        self.ssl_context.verify_mode = ssl.CERT_NONE
         
         self.username = None
         self.in_tournament = False
@@ -19,10 +19,10 @@ class RPSGameClient:
     def connect_to_server(self):
         try:
             self.client_socket.connect((self.server_host, self.server_port))
-            # self.client_socket = self.ssl_context.wrap_socket(
-            #     self.client_socket, 
-            #     server_hostname=self.server_host
-            # )
+            self.client_socket = self.ssl_context.wrap_socket(
+                self.client_socket, 
+                server_hostname=self.server_host
+            )
             print("Connected to server.")
             self.game_loop()
         except Exception as e:

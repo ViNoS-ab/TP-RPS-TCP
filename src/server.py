@@ -14,16 +14,14 @@ class RPSGameServer:
         self.port = port
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
-        # Create SSL context
-        # self.ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-        # self.ssl_context.load_cert_chain(certfile="server.crt", keyfile="server.key")
+        self.ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+        self.ssl_context.load_cert_chain(certfile="server.crt", keyfile="server.key")
         
-        # # Wrap the socket with SSL
         self.server_socket.bind((self.host, self.port))
-        # self.server_socket = self.ssl_context.wrap_socket(
-        #     self.server_socket, 
-        #     server_side=True
-        # )
+        self.server_socket = self.ssl_context.wrap_socket(
+            self.server_socket, 
+            server_side=True
+        )
         
         self.server_socket.listen(5)
 
